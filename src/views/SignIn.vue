@@ -31,9 +31,9 @@ const signIn = async () => {
     const res = await axios.post(`${apiurl}/users/sign_in`, signinBox)
     alert('登入成功')
 
-    document.cookie = `fabio20token=${res.data.token};expires=${new Date(res.data.exp)}; path=/`
-    signinBox.email = ''
-    signinBox.password = ''
+    document.cookie = `fabio20token=${res.data.token};expires=${new Date(res.data.exp * 1000)}; path=/`
+    // signinBox.email = ''
+    // signinBox.password = ''
     console.log(res)
     // router.push('/todo')
   } catch (error) {
