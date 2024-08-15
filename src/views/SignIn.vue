@@ -15,7 +15,9 @@
 <script setup>
 import axios from 'axios'
 import { reactive } from 'vue'
-// import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const signinBox = reactive({
   email: '',
@@ -32,10 +34,10 @@ const signIn = async () => {
     alert('登入成功')
 
     document.cookie = `fabio20token=${res.data.token};expires=${new Date(res.data.exp * 1000)}; path=/`
-    // signinBox.email = ''
-    // signinBox.password = ''
+    signinBox.email = ''
+    signinBox.password = ''
     console.log(res)
-    // router.push('/todo')
+    router.push('/todo')
   } catch (error) {
     alert('登入失敗')
     console.log(error.message)
