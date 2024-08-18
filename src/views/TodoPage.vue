@@ -2,19 +2,24 @@
   <div class="d-flex flex-column">
     <p>todo</p>
     <p>登入狀態</p>
+    <p class="text-success" v-if="resData.status">已登入</p>
+    <p class="text-danger" v-else>未登入</p>
     <div class="d-flex flex-column" v-if="resData.status">
       <p>{{ resData.nickname }}</p>
       <p>{{ resData.uid }}</p>
     </div>
-    <ul>
+    <ul v-if="todos.length !== 0">
       <li v-for="item in todos" :key="item.id" class="d-flex align-items-center mt-2">
         <p>
-          <span>{{ formatDate(item.createTime) }}</span> {{ item.content }}
+          <span style="font-size: 10px">{{ formatDate(item.createTime) }}</span> {{ item.content }}
         </p>
         <button class="btn bg-info text-white" type="button">編輯</button>
-        <button class="btn bg-info text-white mx-1" type="button">刪除</button>
+        <button class="btn bg-info text-white mx-1" @click="deletedTodo(item.id)" type="button">
+          刪除
+        </button>
       </li>
     </ul>
+    <p v-else>暫時沒資料喔</p>
     <div>
       <input
         v-model.trim="newtodo.content"
@@ -74,6 +79,17 @@ const addTodo = async () => {
   } catch (error) {
     console.error('添加 Todo 失败:', error.message)
     alert(`添加 Todo 失败: ${error.message}`)
+  }
+}
+
+const deletedTodo = async (id) => {
+  try {
+    const response = await axios.delete(`${apiurl}/todos/${id}`)
+    console.log('刪除成功', response)
+    await getTodos()
+    newtodo.content = ''
+  } catch (error) {
+    console.error('刪除 Todo 失败:', error.message)
   }
 }
 
