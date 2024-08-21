@@ -45,6 +45,9 @@
 
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 import axios from 'axios'
 
 const apiurl = 'https://todolist-api.hexschool.io'
@@ -64,6 +67,7 @@ const checkLogin = async () => {
   } catch (error) {
     console.error('驗證失敗:', error.message)
     alert(`驗證失敗: ${error.message}`)
+    router.push('/')
   }
 }
 
