@@ -115,11 +115,11 @@
         font-weight: 400;
         color: $dark-color;
       }
-      i {
+      > i {
         display: none;
         cursor: pointer;
       }
-      &:hover i {
+      &:hover > i {
         display: block;
       }
     }
