@@ -1,4 +1,4 @@
-import './assets/main.css'
+
 import './assets/SCSS/all.scss'
 import axios from 'axios'
 import VueAxios from 'vue-axios'

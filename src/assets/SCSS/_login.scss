@@ -1,0 +1,104 @@
+.sr-only {
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+}
+
+.phone-header {
+  padding-top: 48px;
+  .phone-logo-pic {
+    width: 312.6px;
+    img {
+      width: 100%;
+      vertical-align: bottom;
+    }
+  }
+}
+.section-login {
+  padding: 87px 0;
+  max-width: 1028px;
+  margin: auto;
+}
+.login-main {
+  width: 87.15953%;
+  margin: auto;
+  .login-left-pic {
+    width: 37.548638vw;
+    max-width: 386px;
+    img {
+      width: 100%;
+    }
+  }
+}
+.login-from {
+  width: 90%;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: $dark-color;
+    text-align: center;
+    margin-bottom: 1em;
+  }
+  .login-from-item {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    label {
+      font-size: 14px;
+      font-weight: 700;
+      color: $dark-color;
+      margin-bottom: 6px;
+    }
+    input {
+      height: 47px;
+      text-indent: 1rem;
+      border: none;
+      border-radius: 12px 16px 12px 16px;
+      box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+      &::placeholder {
+        font-size: 16px;
+        font-weight: 700;
+        text-indent: 1rem;
+        color: #9f9a91;
+      }
+    }
+    & + .login-from-item {
+      margin-top: 1rem;
+    }
+  }
+}
+.member-sumit-btn {
+  padding: 5px 0;
+  max-width: 170px;
+  border: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  background-color: transparent;
+  color: $dark-color;
+  &:nth-child(1) {
+    background-color: $dark-color;
+    padding: 12px 48px 12px 48px;
+    margin-top: 24px;
+    color: #fff;
+  }
+  & + .member-sumit-btn {
+    margin-top: 10px;
+  }
+}
+@media (max-width: 500px) {
+  .section-login {
+    padding: 48px 0;
+    max-width: 100%;
+    margin: auto;
+  }
+  .login-from {
+    width: 100%;
+  }
+}

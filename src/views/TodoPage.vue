@@ -2,6 +2,7 @@
   <div class="d-flex flex-column">
     <p>todo</p>
     <p>登入狀態</p>
+    <button @click="checkout">登出</button>
     <p class="text-success" v-if="resData.status">已登入</p>
     <p class="text-danger" v-else>未登入</p>
     <div class="d-flex flex-column" v-if="resData.status">
@@ -137,6 +138,16 @@ const formatDate = (timestamp) => {
   const hours = String(date.getHours()).padStart(2, '0')
   const minutes = String(date.getMinutes()).padStart(2, '0')
   return `${year}年${month}月${day}日 ${hours}時${minutes}分`
+}
+
+const checkout = async () => {
+  try {
+    await axios.post(`${apiurl}/users/sign_out`)
+    alert('登出成功')
+    router.push('/login')
+  } catch (error) {
+    console.error('登出失敗:', error.message)
+  }
 }
 
 const resetForm = () => {

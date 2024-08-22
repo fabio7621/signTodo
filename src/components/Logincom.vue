@@ -1,17 +1,22 @@
 <template>
-  <form @submit.prevent="signIn">
-    <div>
-      <label for="myemail">Email</label>
-      <input id="myemail" v-model="signinBox.email" type="email" required />
+  <form class="login-from" @submit.prevent="signIn">
+    <h2>最實用的線上代辦事項服務</h2>
+    <div class="login-from-item">
+      <label for="">Email</label>
+      <input placeholder="請輸入Email" v-model="signinBox.email" type="email" required />
     </div>
-    <div>
-      <label for="mypass">Password</label>
-      <input id="mypass" v-model="signinBox.password" type="password" required />
+
+    <div class="login-from-item d-flex flex-cloun">
+      <label for="">密碼</label>
+      <input placeholder="請輸入密碼" v-model="signinBox.password" type="password" />
     </div>
-    <button type="submit">登入</button>
+
+    <div class="d-flex flex-column mx-auto">
+      <button @click="signIn" class="member-sumit-btn btn" type="button">登入</button>
+      <router-link to="/register" class="member-sumit-btn btn" type="button ">註冊帳號</router-link>
+    </div>
   </form>
 </template>
-
 <script setup>
 import axios from 'axios'
 import { reactive } from 'vue'
