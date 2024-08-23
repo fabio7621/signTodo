@@ -1,7 +1,7 @@
-
 import './assets/SCSS/all.scss'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import 'bootstrap-icons/font/bootstrap-icons.css'
 
 import { createApp } from 'vue'
 import App from './App.vue'
