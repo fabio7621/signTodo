@@ -26,29 +26,29 @@
         <div class="todos-box">
           <div class="todos-top-btns">
             <button
-              @click="getTodos(全部)"
+              @click="changeStatus('all')"
               class="todo-btn rounded-0"
               :class="{ active: optStatus.all }"
             >
               全部
             </button>
             <button
-              @click="getTodos(待完成)"
+              @click="changeStatus('noFin')"
               class="todo-btn rounded-0"
-              :class="{ active: optStatus.finish }"
+              :class="{ active: optStatus.noFin }"
             >
               待完成
             </button>
             <button
-              @click="getTodos(已完成)"
+              @click="changeStatus('finish')"
               class="todo-btn rounded-0"
-              :class="{ active: optStatus.all }"
+              :class="{ active: optStatus.finish }"
             >
               已完成
             </button>
           </div>
           <ul class="todo-lists">
-            <li v-for="item in todos" :key="item.uid">
+            <li v-for="item in filterTodo" :key="item.uid">
               <input v-if="!item.status" type="checkbox" @change="statusTodoChange(item.id)" />
               <div v-else class="todo-lists-check">
                 <img src="../../public/images/check 1.png" alt="check" />
@@ -88,12 +88,6 @@ const newtodo = reactive({
 })
 const isEditing = ref(false)
 const editTodoId = ref(null)
-
-const optStatus = reactive({
-  all: false,
-  finish: false,
-  noFin: false
-})
 
 const checkLogin = async () => {
   try {
@@ -165,16 +159,6 @@ const statusTodoChange = async (id) => {
   }
 }
 
-// const formatDate = (timestamp) => {
-//   const date = new Date(timestamp * 1000)
-//   const year = date.getFullYear()
-//   const month = String(date.getMonth() + 1).padStart(2, '0')
-//   const day = String(date.getDate()).padStart(2, '0')
-//   const hours = String(date.getHours()).padStart(2, '0')
-//   const minutes = String(date.getMinutes()).padStart(2, '0')
-//   return `${year}年${month}月${day}日 ${hours}時${minutes}分`
-// }
-
 const checkout = async () => {
   try {
     await axios.post(`${apiurl}/users/sign_out`)
@@ -191,10 +175,53 @@ const resetForm = () => {
   editTodoId.value = null
 }
 
+const optStatus = reactive({
+  all: true,
+  finish: false,
+  noFin: false
+})
+
 const notFinish = computed(() => {
   return todos.value.filter((item) => item.status === false)
 })
 
+async function changeStatus(status) {
+  if (status === 'all') {
+    optStatus.all = true
+    optStatus.finish = false
+    optStatus.noFin = false
+  } else if (status === 'finish') {
+    optStatus.all = false
+    optStatus.finish = true
+    optStatus.noFin = false
+  } else if (status === 'noFin') {
+    optStatus.all = false
+    optStatus.finish = false
+    optStatus.noFin = true
+  }
+  await getTodos()
+}
+
+const filterTodo = computed(() => {
+  if (optStatus.all === true) {
+    return todos.value
+  } else if (optStatus.finish === true) {
+    return todos.value.filter((item) => item.status === true)
+  } else if (optStatus.noFin === true) {
+    return todos.value.filter((item) => item.status === false)
+  }
+  return []
+})
+
+// const formatDate = (timestamp) => {
+//   const date = new Date(timestamp * 1000)
+//   const year = date.getFullYear()
+//   const month = String(date.getMonth() + 1).padStart(2, '0')
+//   const day = String(date.getDate()).padStart(2, '0')
+//   const hours = String(date.getHours()).padStart(2, '0')
+//   const minutes = String(date.getMinutes()).padStart(2, '0')
+//   return `${year}年${month}月${day}日 ${hours}時${minutes}分`
+// }
 onMounted(() => {
   const token = document.cookie.replace(/(?:(?:^|.*;\s*)fabio20token\s*=\s*([^;]*).*$)|^.*$/, '$1')
   axios.defaults.headers.common.Authorization = token
