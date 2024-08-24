@@ -106,7 +106,7 @@ const checkLogin = async () => {
   }
 }
 
-const getTodos = async (status) => {
+const getTodos = async () => {
   try {
     const response = await axios.get(`${apiurl}/todos/`)
     todos.value = response.data.data
