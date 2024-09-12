@@ -65,7 +65,7 @@ const signup = async () => {
     signOutbox.nickname = ''
     confirmPassword.value = ''
 
-    router.push('/login')
+    router.push('login')
   } catch (error) {
     alert('註冊失敗')
     console.log(error.message)
